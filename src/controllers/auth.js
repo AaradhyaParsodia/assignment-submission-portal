@@ -65,6 +65,7 @@ export const register = async (req, res) => {
             success: true,
             message: "User registered successfully",
             userId: newUser._id,
+            role: newUser.role,
             token: token
         });
 
@@ -109,7 +110,7 @@ export const login = async (req, res) => {
             const token = jwt.sign({
                 userId: _id,
                 username: username,
-                email: email
+                email: email,
             }, JWT_SECRET, {
                 expiresIn: '8h'
             });
@@ -119,11 +120,11 @@ export const login = async (req, res) => {
                 user: {
                     id: _id,
                     username: username,
-                    email: email
+                    email: email,
+                    role: user.role
                 }
             });
         }
-
 
     } catch (error) {
         console.error(`error in login user controller ${error}`);

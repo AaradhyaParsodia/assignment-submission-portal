@@ -12,7 +12,7 @@ const assignmentSchema = new mongoose.Schema({
         ref: Users,
         required: true
     },
-    tasks: {
+    task: {
         type: String,
         required: true
     },
