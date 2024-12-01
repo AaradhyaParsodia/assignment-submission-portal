@@ -1,5 +1,7 @@
 import swaggerJSDoc from "swagger-jsdoc";
 
+const port = process.env.PORT || 3000
+
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -14,7 +16,7 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:3000/api/v1",
+                url: `http://localhost:${port}/api/v1`,
             },
         ],
         tags: [
@@ -65,7 +67,7 @@ const options = {
                     type: 'object',
                     properties: {
                         email: { type: 'string', format: 'email', example: 'temp@temp.com' },
-                        password: { type: 'string', example: 'asdf1234'}
+                        password: { type: 'string', example: 'asdfg1234'}
                     },
                     required: ['email', 'password']
                 },
@@ -111,17 +113,20 @@ const options = {
                     properties: {
                         success: { type: 'string', example: 'true'},
                         assignments: {
-                            type: 'objects',
+                            type: 'object',
                             properties: {
                                 _id: { type: 'string', example: '66e141cb6828d8e26178f5b6'},
                                 adminId: { type: 'string', example: '8e26178f5b666e141cb68283'},
                                 task: { type: 'string', example: '100 coding problems'},
                                 isAccepted: { type: 'string', example: 'true'},
-                                createdAt: { type: 'string', example: '2024-12-01T18:05:52.060Z'},
-                                updatedAt: { type: 'string', example: '2024-12-01T18:05:52.060Z'},
+                                createdAt: { type: 'string', format: 'date-time', example: '2024-12-01T18:05:52.060Z'},
+                                updatedAt: { type: 'string', format: 'date-time', example: '2024-12-01T18:05:52.060Z'},
                                 userId: {
-                                    email: {  type: 'string', format: 'email', example: 'temp@temp.com'},
-                                    username: { type: 'string', example: 'temp_12'}
+                                    type: 'object',
+                                    properties: {
+                                        email: {  type: 'string', format: 'email', example: 'temp@temp.com'},
+                                        username: { type: 'string', example: 'temp_12'}
+                                    }
                                 }
                             }
                         }

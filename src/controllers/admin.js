@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Assignments from "../models/assignments.js";
 import Users from "../models/users.js";
 
@@ -32,7 +33,7 @@ export const getAssignmnets = async (req, res) => {
             _id: assignment._id,
             adminId: assignment.adminId,
             task: assignment.task,
-            isAccepted: assignment.isAccepted,
+            isAccepted: new String(assignment.isAccepted),
             createdAt: assignment.createdAt,
             updatedAt: assignment.updatedAt,
             userId: {
@@ -56,6 +57,13 @@ export const acceptAssignment = async (req, res) => {
     
     const userId = req._id;
     const assignmentId = req.params.id;
+
+    if (!mongoose.isValidObjectId(assignmentId)) {
+        return res.status(400).json({ 
+            message: 'Invalid assignment ID' 
+        });
+    }
+
 
     try {
         
@@ -85,7 +93,7 @@ export const acceptAssignment = async (req, res) => {
         }
 
 
-        const updatedAssignment = await Assignments.updateByOne({
+        const updatedAssignment = await Assignments.updateOne({
             _id: assignmentId
         }, {
             $set: {isAccepted: true}
@@ -113,6 +121,13 @@ export const rejectAssignment = async (req, res) => {
     const userId = req._id;
     const assignmentId = req.params.id;
 
+    
+    if (!mongoose.isValidObjectId(assignmentId)) {
+        return res.status(400).json({ 
+            message: 'Invalid assignment ID' 
+        });
+    }
+
     try {
         
         const user = await Users.findOne({
@@ -141,7 +156,7 @@ export const rejectAssignment = async (req, res) => {
         }
 
 
-        const updatedAssignment = await Assignments.updateByOne({
+        const updatedAssignment = await Assignments.updateOne({
             _id: assignmentId
         }, {
             $set: {isAccepted: false}

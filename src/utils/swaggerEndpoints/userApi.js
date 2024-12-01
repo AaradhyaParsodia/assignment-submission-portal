@@ -43,7 +43,7 @@
 // ============================================================================================
 /**
  * @swagger
- * /upload:
+ * /user/upload:
  *   post:
  *     summary: upload a new assignment 
  *     tags: [User]
