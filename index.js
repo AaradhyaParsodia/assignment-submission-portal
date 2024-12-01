@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 
 import connectionDB from "./src/configs/connectionDB.js";
-// import { rootRouter } from "./src/routes/index.js";
+import { rootRouter } from "./src/routes/index.js";
 
 import swaggerUi from 'swagger-ui-express';
 // import swaggerSpec from './src/configs/swaggerSpecs.js';
@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-// app.use('/v1/api', rootRouter);
+app.use('/v1/api', rootRouter);
 
 // app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
